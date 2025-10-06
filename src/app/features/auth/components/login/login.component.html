@@ -1,0 +1,24 @@
+<div class="login-wrapper">
+  <div class="login-panel">
+    <h1 class="app-title">Sistema Padaria</h1>
+    <h2 class="panel-title">Acesso ao Sistema</h2>
+    <form (ngSubmit)="submit()" #loginForm="ngForm" novalidate aria-label="Formulário de login">
+      <div class="field-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="email" name="email" required autocomplete="email" placeholder="Digite seu email" />
+      </div>
+      <div class="field-group">
+        <label for="password">Senha</label>
+        <input id="password" type="password" [(ngModel)]="password" name="password" required autocomplete="current-password" placeholder="Digite sua senha" />
+      </div>
+      <button type="submit" class="primary-btn" [disabled]="!loginForm.form.valid || loading()">
+        @if (loading()) {
+          Carregando...
+        } @else {
+          Entrar no Sistema
+        }
+      </button>
+    </form>
+    <p class="hint">Use <strong>admin&#64;exemplo.com / admin123</strong> para acessar.</p>
+  </div>
+</div>

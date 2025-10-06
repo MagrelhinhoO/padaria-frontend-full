@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema Padaria - Login</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background: white;
+      padding: 3rem 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo h1 {
+      color: #667eea;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo p {
+      color: #666;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px 18px;
+      border: 2px solid #e8ecef;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      background-color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    }
+
+    .form-group input::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .credentials-hint {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      border-left: 4px solid #667eea;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .credentials-hint strong {
+      color: #667eea;
+    }
+
+    .menu-container {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .menu-container h2 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .menu-card {
+      background: white;
+      border: 2px solid #e8ecef;
+      border-radius: 10px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .menu-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(102, 126, 234, 0.15);
+    }
+
+    .menu-card h3 {
+      margin-bottom: 0.5rem;
+      color: #667eea;
+    }
+
+    .logout-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #dc3545;
+      font-size: 14px;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 2rem 1.5rem;
+      }
+      
+      .logo h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Tela de Login -->
+  <div id="loginScreen" class="login-container">
+    <div class="logo">
+      <h1>Padaria Pão Doce</h1>
+      <p>Acesso ao Sistema</p>
+    </div>
+
+    <div class="error-message" id="errorMessage">
+      Email ou senha inválidos!
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">
+        Entrar no Sistema
+      </button>
+    </form>
+
+    <div class="credentials-hint">
+      Use <strong>admin@padaria.com / admin123</strong> para acessar
+    </div>
+  </div>
+
+  <!-- Menu Principal -->
+  <div id="menuScreen" class="menu-container">
+    <h2>Menu Principal - Sistema Padaria</h2>
+    <p>Bem-vindo ao sistema! Escolha uma opção:</p>
+    
+    <div class="menu-grid">
+      <div class="menu-card" onclick="alert('Funcionalidade Produtos em desenvolvimento')">
+        <h3>🥖 Produtos</h3>
+        <p>Gerencie o catálogo de produtos da padaria</p>
+      </div>
+      
+      <div class="menu-card" onclick="alert('Funcionalidade Vendas em desenvolvimento')">
+        <h3>💰 Vendas</h3>
+        <p>Registre e acompanhe as vendas</p>
+      </div>
+      
+      <div class="menu-card" onclick="alert('Funcionalidade Relatórios em desenvolvimento')">
+        <h3>📊 Relatórios</h3>
+        <p>Visualize relatórios e estatísticas</p>
+      </div>
+      
+      <div class="menu-card" onclick="alert('Funcionalidade Estoque em desenvolvimento')">
+        <h3>📦 Estoque</h3>
+        <p>Controle de inventário e estoque</p>
+      </div>
+    </div>
+    
+    <button class="logout-btn" onclick="logout()">🚪 Sair do Sistema</button>
+  </div>
+
+  <script>
+    // Credenciais estáticas para autenticação
+    const VALID_EMAIL = 'admin@padaria.com';
+    const VALID_PASSWORD = 'admin123';
+
+    // Elementos do DOM
+    const loginScreen = document.getElementById('loginScreen');
+    const menuScreen = document.getElementById('menuScreen');
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+    const loginBtn = document.getElementById('loginBtn');
+
+    // Verificar se já está logado
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      showMenu();
+    }
+
+    // Handler do formulário de login
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Mostrar loading
+      loginBtn.textContent = 'Carregando...';
+      loginBtn.disabled = true;
+      
+      // Simular delay de autenticação
+      setTimeout(function() {
+        if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+          // Login bem-sucedido
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('userEmail', email);
+          showMenu();
+        } else {
+          // Login falhrou
+          showError();
+        }
+        
+        // Restaurar botão
+        loginBtn.textContent = 'Entrar no Sistema';
+        loginBtn.disabled = false;
+      }, 1000);
+    });
+
+    function showMenu() {
+      loginScreen.style.display = 'none';
+      menuScreen.style.display = 'block';
+      document.body.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+    }
+
+    function showError() {
+      errorMessage.style.display = 'block';
+      setTimeout(function() {
+        errorMessage.style.display = 'none';
+      }, 3000);
+    }
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userEmail');
+      loginScreen.style.display = 'block';
+      menuScreen.style.display = 'none';
+      document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+      
+      // Limpar campos
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+    }
+
+    // Permitir Enter nos campos para submeter
+    document.getElementById('email').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') loginForm.dispatchEvent(new Event('submit'));
+    });
+    
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') loginForm.dispatchEvent(new Event('submit'));
+    });
+  </script>
+</body>
+</html>
