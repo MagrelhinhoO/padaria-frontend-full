@@ -1,22 +1,15 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
+    "target": "ES2019",
+  "module": "none",
+    "lib": ["DOM", "ES2019"],
     "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "module": "es2022",
-    "target": "es2022",
-    "useDefineForClassFields": true,
-    "lib": ["es2022", "dom"]
-  }
+    "noImplicitAny": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "rootDir": "./src/ts",
+    "outDir": "./src/js"
+  },
+  "include": ["src/ts/**/*"],
+  "exclude": ["node_modules", "dist", "backend-entities"]
 }
